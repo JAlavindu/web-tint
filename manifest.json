@@ -8,5 +8,13 @@
   "background": {
     "service_worker": "service-worker.js",
     "type": "module"
-  }
+  },
+  "action": {
+    "default_popup": "index.html"
+  },
+  "permissions": ["scripting"],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ]
 }
