@@ -22,7 +22,7 @@ function App() {
   return (
     <>
       <div>
-        <input value={colour} onChange={e => setCoulour(e.target.value)}></input>
+        <input type="color" value={colour} onChange={e => setCoulour(e.target.value)}></input>
         <button onClick={onClick}>Click me</button>
       </div>
     </>
