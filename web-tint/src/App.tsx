@@ -1,39 +1,28 @@
 /// <reference types="chrome" />
+import { useState } from 'react';
 import './App.css'
 
 
 function App() {
+  const[colour, setCoulour] = useState('red');
 
   const onClick = async () => {
     const [tab] = await chrome.tabs.query({ active: true});
     const tabId = tab?.id;
     if (tabId == null) return;
-    chrome.scripting.executeScript({
+    chrome.scripting.executeScript<string[], void>({
         target: { tabId: tabId },
-        func: () => {
-            alert('Hello from index.js!');
+        args: [colour],
+        func: (colour) => {
+            document.body.style.backgroundColor = colour;
         }
     })
   }
 
-  // const onClick = async () => {
-  //   const tabs = await new Promise<chrome.tabs.Tab[]>((resolve) =>
-  //     chrome.tabs.query({ active: true }, (tabs) => resolve(tabs))
-  //   )
-  //   const tab = tabs[0]
-  //   if (!tab?.id) return
-
-  //   chrome.scripting.executeScript({
-  //       target: { tabId: tab.id },
-  //       func: () => {
-  //           alert('Hello from index.js!');
-  //       }
-  //   })
-  // }
-
   return (
     <>
       <div>
+        <input value={colour} onChange={e => setCoulour(e.target.value)}></input>
         <button onClick={onClick}>Click me</button>
       </div>
     </>
